@@ -11,11 +11,21 @@ const sendOtp = async (req, res) => {
       });
     }
 
-    await generateAndStoreOtp(mobile);
+    const cleanedMobile = mobile.toString().replace(/\D/g, "").slice(-10);
+    if (cleanedMobile.length !== 10) {
+      return res.status(400).json({
+        success: false,
+        message: "Please enter a valid 10-digit mobile number"
+      });
+    }
+
+    const otp = await generateAndStoreOtp(cleanedMobile);
 
     return res.status(200).json({
       success: true,
-      message: "OTP generated successfully"
+      message: "OTP sent successfully to your registered mobile number",
+      // Include OTP in development mode for testing without SMS provider
+      ...(process.env.NODE_ENV !== "production" ? { otp } : {})
     });
 
   } catch (error) {
@@ -23,7 +33,7 @@ const sendOtp = async (req, res) => {
 
     return res.status(400).json({
       success: false,
-      message: error.message
+      message: error.message || "Failed to send OTP"
     });
   }
 };

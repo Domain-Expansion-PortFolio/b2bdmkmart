@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const { getPortalByRole } = require("../utils/portal");
+const { generateToken } = require("../utils/generateToken");
 
 const verifyMobileOtp = async (req, res) => {
   try {
@@ -13,7 +14,14 @@ const verifyMobileOtp = async (req, res) => {
       });
     }
 
-    const user = await User.findOne({ mobile });
+    const cleanMobile = mobile.toString().replace(/\D/g, "").slice(-10);
+    const user = await User.findUser({
+      $or: [
+        { mobile: cleanMobile },
+        { mobile: `+91${cleanMobile}` },
+        { mobile: mobile }
+      ]
+    });
 
     if (!user) {
       return res.status(404).json({
@@ -22,17 +30,24 @@ const verifyMobileOtp = async (req, res) => {
       });
     }
 
+    if (user.isActive === false) {
+      return res.status(403).json({
+        success: false,
+        message: "Your account is inactive. Please contact support."
+      });
+    }
+
     if (user.otpAttempts >= 5) {
-  return res.status(429).json({
-    success: false,
-    message: "Too many incorrect OTP attempts. Please request a new OTP."
-  });
-}
+      return res.status(429).json({
+        success: false,
+        message: "Too many incorrect OTP attempts. Please request a new OTP."
+      });
+    }
 
     if (!user.otpHash || !user.otpExpiresAt) {
       return res.status(400).json({
         success: false,
-        message: "OTP not requested"
+        message: "OTP not requested or has already been used"
       });
     }
 
@@ -44,38 +59,34 @@ const verifyMobileOtp = async (req, res) => {
 
       return res.status(400).json({
         success: false,
-        message: "OTP has expired"
+        message: "OTP has expired. Please request a new OTP."
       });
     }
 
-    const otpMatch = await bcrypt.compare(otp, user.otpHash);
+    const otpMatch = await bcrypt.compare(otp.toString().trim(), user.otpHash);
 
     if (!otpMatch) {
       user.otpAttempts += 1;
       await user.save();
 
+      const remaining = 5 - user.otpAttempts;
       return res.status(401).json({
         success: false,
-        message: "Invalid OTP"
+        message: remaining > 0
+          ? `Invalid OTP. ${remaining} attempts remaining.`
+          : "Invalid OTP. Too many failed attempts. Please request a new OTP."
       });
     }
 
-    // OTP is valid — clear it so it cannot be reused
+    // OTP verified: clear OTP credentials
     user.otpHash = undefined;
     user.otpExpiresAt = undefined;
     user.otpAttempts = 0;
     await user.save();
 
-    const token = jwt.sign(
-      {
-        id: user._id,
-        role: user.role
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: process.env.JWT_EXPIRES_IN || "7d"
-      }
-    );
+    const portal = getPortalByRole(user.role) || "customer";
+
+    const token = generateToken(user);
 
     return res.status(200).json({
       success: true,
@@ -88,7 +99,8 @@ const verifyMobileOtp = async (req, res) => {
         mobile: user.mobile,
         role: user.role,
         accountStatus: user.accountStatus
-      }
+      },
+      portal
     });
 
   } catch (error) {
