@@ -1,0 +1,415 @@
+/* ==========================================================================
+   DMK Mart - Sign Up Page Styles
+   Faithfully matching the Login Page Design and Aesthetics
+   ========================================================================== */
+
+/* Full page layout with high-resolution background banner */
+.signup-page {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 18px;
+  box-sizing: border-box;
+  background: #fbf3e4 url("/login-bg.png") center center / cover no-repeat;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  color: #111827;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   Left Branding and Highlights
+   ========================================================================== */
+.signup-left {
+  position: absolute;
+  left: 6.5%;
+  top: 14%;
+  width: 360px;
+  z-index: 5;
+  user-select: none;
+}
+
+.signup-left h1 {
+  margin: 0 0 28px;
+  font-size: 42px;
+  line-height: 1.15;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.02em;
+}
+
+.signup-left .feature {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.signup-left .feature-icon {
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(254, 224, 82, 0.45);
+  color: #111827;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.signup-left .feature-icon:hover {
+  transform: scale(1.05);
+}
+
+.signup-left .feature-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   Center White Registration Card
+   ========================================================================== */
+.signup-card {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  padding: 28px 34px 30px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
+  text-align: left;
+  z-index: 10;
+  margin: 20px 0;
+}
+
+/* DMK Circle Emblem */
+.signup-card .logo {
+  display: block;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 8px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.signup-card h2 {
+  margin: 0;
+  text-align: center;
+  font-size: 23px;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.02em;
+}
+
+.signup-card .subtitle {
+  margin: 4px 0 16px;
+  text-align: center;
+  font-size: 13.5px;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+/* Role Selector Tabs */
+.signup-card .role-tabs {
+  display: flex;
+  background: #f3f4f6;
+  border-radius: 10px;
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.signup-card .role-tab {
+  flex: 1;
+  padding: 9px 8px;
+  border: none;
+  background: transparent;
+  border-radius: 7px;
+  font-size: 13.5px;
+  font-weight: 700;
+  font-family: inherit;
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: center;
+}
+
+.signup-card .role-tab:hover:not(.active) {
+  color: #111827;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.signup-card .role-tab.active {
+  background: #ffffff;
+  color: #111827;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Two-column responsive form grid */
+.signup-card .form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.signup-card .role-fields-block {
+  margin-bottom: 4px;
+}
+
+/* Field labels */
+.signup-card .field-label {
+  display: block;
+  margin: 10px 0 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #374151;
+}
+
+.signup-card .label-optional {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: none;
+  color: #9ca3af;
+  margin-left: 3px;
+}
+
+.signup-card .passcode-hint {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: none;
+  color: #d97706;
+  margin-left: 3px;
+}
+
+/* Shared Select & Input Styles */
+.signup-card .select,
+.signup-card .input {
+  width: 100%;
+  height: 42px;
+  padding: 0 13px;
+  box-sizing: border-box;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 13.5px;
+  font-family: inherit;
+  color: #111827;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.signup-card .select:focus,
+.signup-card .input:focus,
+.signup-card .mobile-group:focus-within {
+  border-color: #facc15;
+  box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.22);
+}
+
+/* Custom dropdown chevron */
+.signup-card .select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23374151' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  cursor: pointer;
+}
+
+/* Mobile number group */
+.signup-card .mobile-group {
+  display: flex;
+  height: 42px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ffffff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.signup-card .country-code {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  background: #f9fafb;
+  border-right: 1px solid #d1d5db;
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+  user-select: none;
+}
+
+.signup-card .mobile-group input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  padding: 0 12px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #111827;
+  background: transparent;
+}
+
+/* Password group with eye toggle */
+.signup-card .password-group {
+  position: relative;
+  width: 100%;
+}
+
+.signup-card .password-field {
+  padding-right: 42px;
+}
+
+.signup-card .password-toggle {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: color 0.15s ease;
+}
+
+.signup-card .password-toggle:hover {
+  color: #111827;
+}
+
+/* Main action button */
+.signup-card .main-button {
+  width: 100%;
+  height: 46px;
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: 8px;
+  background: #facc15;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  color: #111827;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.05s ease, box-shadow 0.15s ease;
+  box-shadow: 0 2px 6px rgba(250, 204, 21, 0.3);
+}
+
+.signup-card .main-button:hover:not(:disabled) {
+  background: #eab308;
+}
+
+.signup-card .main-button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.signup-card .main-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Security note */
+.signup-card .secure-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 14px;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: #6b7280;
+}
+
+.signup-card .shield-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #6b7280;
+}
+
+/* Switch between Sign In and Sign Up */
+.auth-switch {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #e5e7eb;
+  text-align: center;
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.switch-button {
+  background: none;
+  border: none;
+  color: #b45309;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0 4px;
+  transition: color 0.15s ease;
+}
+
+.switch-button:hover {
+  color: #78350f;
+  text-decoration: underline;
+}
+
+/* Alerts */
+.signup-card .error-text {
+  margin: 10px 0 6px;
+  padding: 9px 12px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  font-size: 12.5px;
+  color: #dc2626;
+  line-height: 1.4;
+}
+
+.signup-card .success-text {
+  margin: 10px 0 6px;
+  padding: 9px 12px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  font-size: 12.5px;
+  color: #16a34a;
+  line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .signup-left {
+    display: none;
+  }
+}
+
+@media (max-width: 580px) {
+  .signup-card {
+    padding: 22px 18px 24px;
+    border-radius: 20px;
+  }
+
+  .signup-card .form-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .signup-card h2 {
+    font-size: 21px;
+  }
+}
+
