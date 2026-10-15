@@ -15,14 +15,14 @@ const authenticate = (req, res, next) => {
 
     const decoded = jwt.verify(
       token,
-      process.env.JWT_SECRET
+      process.env.JWT_SECRET || "dmkmart_jwt_secret_key_2026_super_secure"
     );
 
     req.user = decoded;
 
     next();
 
-  } catch (error) {
+  } catch {
     return res.status(401).json({
       success: false,
       message: "Invalid or expired token"
